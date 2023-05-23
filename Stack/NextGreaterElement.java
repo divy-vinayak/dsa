@@ -4,15 +4,15 @@ public class NextGreaterElement {
     public static void fillNextGreater(int arr[], int nextGreater[]){
         Stack<Integer> s = new Stack<>();
         for(int i = arr.length - 1; i >= 0; i--){
-            while(!s.isEmpty() && s.peek() <= arr[i]){
+            while(!s.isEmpty() && arr[s.peek()] <= arr[i]){
                 s.pop();
             }
             if(!s.isEmpty()){
-                nextGreater[i] = s.peek();
+                nextGreater[i] = arr[s.peek()];
             }else{
                 nextGreater[i] = -1;
             }
-            s.push(arr[i]);
+            s.push(i);
         }
     }
     public static void main(String[] args) {
