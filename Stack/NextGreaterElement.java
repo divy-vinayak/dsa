@@ -1,6 +1,7 @@
 package Stack;
 import java.util.*;
 public class NextGreaterElement {
+    // Time complexity: O(n)
     public static void fillNextGreater(int arr[], int nextGreater[]){
         Stack<Integer> s = new Stack<>();
         for(int i = arr.length - 1; i >= 0; i--){
