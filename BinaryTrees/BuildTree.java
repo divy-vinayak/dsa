@@ -16,7 +16,7 @@ public class BuildTree {
     public static class BinaryTree{
         static int idx = -1;
         Node root = null;
-        public static Node preOrderBuildTree(int nodes[]){
+        public Node preOrderBuildTree(int nodes[]){
             idx++;
             if(nodes[idx] == -1){
                 return null;
