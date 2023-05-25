@@ -89,7 +89,22 @@ public class BuildTree {
             }
         }
     }
-
+    public static int getHeight(Node root){
+        if(root == null) return 0;
+        return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
+    }
+    public static int countNodes(Node root){
+        if(root==null) return 0;
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+    public static int sumOfNodes(Node root){
+        if(root == null) return 0;
+        return sumOfNodes(root.left) + sumOfNodes(root.right) + root.data;
+    }
+    public static int getDiameter(Node root){
+        if(root == null) return 0;
+        return getHeight(root.left) + getHeight(root.right) + 1;
+    }
     public static void main(String[] args) {
         int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
         BinaryTree bt = new BinaryTree();
@@ -102,5 +117,9 @@ public class BuildTree {
         // System.out.println();
 
         leverOrderPrintTree(bt.root);
+        System.out.println("The height of Binary Tree: " + getHeight(bt.root));
+        System.out.println("The number of nodes: " + countNodes(bt.root));
+        System.out.println("The sum of nodes: " + sumOfNodes(bt.root));
+        System.out.println("The diameter of Binary Tree: " + getDiameter(bt.root));
     }
 }
