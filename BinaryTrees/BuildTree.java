@@ -101,9 +101,27 @@ public class BuildTree {
         if(root == null) return 0;
         return sumOfNodes(root.left) + sumOfNodes(root.right) + root.data;
     }
-    public static int getDiameter(Node root){
+    public static int getDiameter(Node root){ // O(n^2)
         if(root == null) return 0;
-        return getHeight(root.left) + getHeight(root.right) + 1;
+        int leftDia = getDiameter(root.left);
+        int rightDia = getDiameter(root.right);
+        int currDia = getHeight(root.left) + getHeight(root.right) + 1;
+        return Math.max(currDia, Math.max(leftDia, rightDia));
+    }
+    static class Info{
+        public int height, diameter;
+        Info(int height, int diameter){
+            this.height = height;
+            this.diameter = diameter;
+        }
+    }
+    public static Info getDiameterInBigOofN(Node root){
+        if(root == null){
+            return new Info(0,0);
+        }
+        Info left = getDiameterInBigOofN(root.left);
+        Info right = getDiameterInBigOofN(root.right);
+        return new Info(Math.max(left.height, right.height)+1, Math.max(left.height + right.height + 1, Math.max(left.diameter, right.diameter)));
     }
     public static void main(String[] args) {
         int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
@@ -121,5 +139,6 @@ public class BuildTree {
         System.out.println("The number of nodes: " + countNodes(bt.root));
         System.out.println("The sum of nodes: " + sumOfNodes(bt.root));
         System.out.println("The diameter of Binary Tree: " + getDiameter(bt.root));
+        System.out.println("The diameter of Binary Tree: " + getDiameterInBigOofN(bt.root).diameter);
     }
 }
