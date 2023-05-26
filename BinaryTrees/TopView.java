@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class TopView {
-    static class Node{
+    public static class Node{
         int data;
         Node left, right;
         Node(int data){
