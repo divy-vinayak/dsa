@@ -15,6 +15,12 @@ public class Module1 {
         System.out.print(root.data + " ");
         inOrderPrintTree(root.right);
     }
+    static void preOrderPrintTree(Node root){
+        if(root == null) return;
+        System.out.print(root.data + " ");
+        preOrderPrintTree(root.left);
+        preOrderPrintTree(root.right);
+    }
     static Node insert(Node root, int val){
         if(root == null){
             return new Node(val);
@@ -56,7 +62,8 @@ public class Module1 {
         root.right = temp;
     }
     public static void main(String[] args) {
-        int arr[] = {5, 1, 3, 4, 2, 7};
+        // int arr[] = {5, 1, 3, 4, 2, 7};
+        int arr[] = {8, 5, 3, 6, 10, 11};
         Node root = BuildBST(arr);
         inOrderPrintTree(root);
         System.out.println();
