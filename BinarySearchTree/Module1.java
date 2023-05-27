@@ -34,10 +34,37 @@ public class Module1 {
         }
         return root;
     }
+    static boolean hasKey(Node root, int key){
+        if(root == null) return false;
+        if(root.data == key) return true;
+        return key > root.data ? hasKey(root.right, key): hasKey(root.left, key);
+    }
+    public static boolean validateBSTInner(Node root, int min, int max){
+        if(root == null) return true;
+        if(root.data < min || root.data > max) return false;
+        return validateBSTInner(root.left, min, root.data) && validateBSTInner(root.right, root.data, max);
+    }
+    public static boolean validateBST(Node root){
+        return validateBSTInner(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    public static void mirrorBST(Node root){
+        if(root == null) return;
+        mirrorBST(root.left);
+        mirrorBST(root.right);
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
     public static void main(String[] args) {
         int arr[] = {5, 1, 3, 4, 2, 7};
         Node root = BuildBST(arr);
         inOrderPrintTree(root);
         System.out.println();
+        System.out.println(validateBST(root));
+        
+        mirrorBST(root);
+        inOrderPrintTree(root);
+        System.out.println();
+        System.out.println(validateBST(root));
     }
 }
