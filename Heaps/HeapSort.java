@@ -21,7 +21,7 @@ public class HeapSort {
             heapify(arr, maxIdx, size);
         }
     }
-    public static void heapSort(int arr[]){
+    public static void heapSort(int arr[]){ // O(nlogn)
         // step 1 - build maxheap
         int n = arr.length;
         for(int i = arr.length/2; i >= 0; i--){
