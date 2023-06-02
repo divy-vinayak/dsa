@@ -75,9 +75,9 @@ public class BfsDfs {
             visited[src] = true;
             for(int i = 0; i < graph[src].size(); i++){
                 int dest = graph[src].get(i).dest;
-                if(!visited[dest]){
+                // if(!visited[dest]){
                     dfsHelper(graph, visited, dest);
-                }
+                // }
             }
         }
     }
