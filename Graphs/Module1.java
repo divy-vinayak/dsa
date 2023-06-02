@@ -30,6 +30,7 @@ public class Module1 {
         */
 
         int V = 5;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V]; // all value = null
         for(int i = 0; i < graph.length; i++){
             graph[i] = new ArrayList<>();
@@ -58,11 +59,13 @@ public class Module1 {
         int neighbourOf = sc.nextInt();
         if(neighbourOf > 4){
             System.out.println("Error vertex doesn't exist");
+            sc.close();
             return;
         }
         for(int i = 0; i < graph[neighbourOf].size(); i++){
             Edge e = graph[neighbourOf].get(i);
             System.out.println(e.dest + ", " + e.weight);
         }
+        sc.close();
     }
 } 
