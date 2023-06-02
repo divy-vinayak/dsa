@@ -88,7 +88,7 @@ public class BfsDfs {
         System.out.println();
     }
 
-    static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean visited[]){
+    static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean visited[]){ // O(V+E)
         visited[src] = true;
         if(src == dest) return true;
         else{
