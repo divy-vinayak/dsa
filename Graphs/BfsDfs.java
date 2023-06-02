@@ -14,11 +14,11 @@ public class BfsDfs {
         }
     }
     /*
-     *                       1-------3
-     *                      /        |\
-     *                     0         | 5----6
-     *                      \        |/
-     *                       2-------4
+     *           1-------3
+     *          /        |\
+     *         0         | 5----6
+     *          \        |/
+     *           2-------4
      */
     static void createGraph(ArrayList<Edge>[] graph){
         for(int i = 0; i < graph.length; i++){
@@ -81,11 +81,22 @@ public class BfsDfs {
             }
         }
     }
-    static void DFS(ArrayList<Edge>[] graph){
+    static void DFS(ArrayList<Edge>[] graph){ // O(V+E)
         int src = 0;
         boolean visited[] = new boolean[graph.length];
         dfsHelper(graph, visited, src);
         System.out.println();
+    }
+
+    static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean visited[]){
+        visited[src] = true;
+        if(src == dest) return true;
+        else{
+            for(int i = 0; i < graph[src].size(); i++){
+                if(!visited[graph[src].get(i).dest] && hasPath(graph, graph[src].get(i).dest, dest, visited)) return true;
+            }
+        }
+        return false;
     }
     public static void main(String[] args) {
         @SuppressWarnings("unchecked")
@@ -93,5 +104,14 @@ public class BfsDfs {
         createGraph(graph);
         BFS(graph);
         DFS(graph);
+        int src = 5;
+        int dest = 8;
+        System.out.print("Src: " + src + "\t Dest: " + dest);
+        if(hasPath(graph, src, dest, new boolean[graph.length])){
+            System.out.println(" --> EXISTS.");
+        }else{
+            System.out.println(" --> DOES NOT EXIST.");
+        }
+        
     }
 }
