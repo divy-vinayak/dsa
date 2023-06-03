@@ -1,9 +1,8 @@
 package Graphs;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
-public class DijkstraAlgo {
+public class BellmanFordAlgo{
     public static class Edge{
         int src, dest, wt;
         Edge(int src, int dest, int wt){
@@ -32,45 +31,40 @@ public class DijkstraAlgo {
         graph[0].add(new Edge(0, 1, 2));
         graph[0].add(new Edge(0, 2, 4));
 
-        graph[1].add(new Edge(1, 2, 1));
-        graph[1].add(new Edge(1, 3, 7));
+        graph[1].add(new Edge(1, 2, -4));
+        // graph[1].add(new Edge(1, 3, 7));
 
-        graph[2].add(new Edge(2, 4, 3));
+        graph[2].add(new Edge(2, 3, 2));
 
-        graph[3].add(new Edge(3, 5, 1));
+        graph[3].add(new Edge(3, 4, 4));
 
-        graph[4].add(new Edge(4, 3, 2));
-        graph[4].add(new Edge(4, 5, 5));
+        graph[4].add(new Edge(4, 1, -1));
+        // graph[4].add(new Edge(4, 5, 5));
     }
 
-    public static void djikstraAlgo(ArrayList<Edge>[] graph, int src){ // O(V + Elog(V))
+    public static void bellmanFordAlgo(ArrayList<Edge>[] graph, int src){ // O(E*V)
         int dist[] = new int[graph.length];
-        boolean visited[] = new boolean[graph.length];
         for(int i = 0; i < graph.length; i++){
             if(i != src){
                 dist[i] = Integer.MAX_VALUE;
             }
         }
-
-        PriorityQueue<Pair> pq = new PriorityQueue<>();
-        pq.add(new Pair(src, 0));
-        while(!pq.isEmpty()){
-            Pair curr = pq.remove();
-            if(!visited[curr.vertex]){
-                visited[curr.vertex] = true;
-                for(int i = 0; i < graph[curr.vertex].size(); i++){
-                    Edge e = graph[curr.vertex].get(i);
+        // Bellman ford algorithm
+        for(int vert = 0; vert < graph.length-1; vert++){
+            for(int i = 0; i < graph.length; i++){
+                for(int j = 0; j < graph[i].size(); j++){
+                    Edge e = graph[i].get(j);
                     int u = e.src;
                     int v = e.dest;
                     int wt = e.wt;
-
-                    if(dist[u] + wt < dist[v]){
+                    
+                    if(dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]){
                         dist[v] = dist[u] + wt;
-                        pq.add(new Pair(v, dist[v]));
                     }
                 }
             }
         }
+            
         for(int i = 0; i < dist.length; i++){
             System.out.println("Dist to " + i + " from " + src + ": " + dist[i]);
         }
@@ -78,10 +72,9 @@ public class DijkstraAlgo {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        ArrayList<Edge>[] graph = new ArrayList[6];
+        ArrayList<Edge>[] graph = new ArrayList[5];
         createGraph(graph);
         int src = 0;
-
-        djikstraAlgo(graph, src);
+        bellmanFordAlgo(graph, src);
     }
 }
