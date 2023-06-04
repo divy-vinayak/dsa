@@ -2,13 +2,13 @@ package Graphs;
 
 public class FloodFill {
     public static void printImg(int[][] img){
-        System.out.println("+---------------------+");
+        System.out.println("+-----------------+");
         for(int i = 0; i < img.length; i++){
             for(int j = 0; j < img[i].length; j++){
                 System.out.print(img[i][j] + " ");
             }System.out.println();
         }
-        System.out.println("+---------------------+");
+        System.out.println("+-----------------+");
     }
 
     public static void floodFillHelp(int[][] img, int sr, int sc,int initialColor, int finalCol){
