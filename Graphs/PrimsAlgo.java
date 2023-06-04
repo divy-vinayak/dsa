@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class PrimsAlgo {
-    public static class Edge{
-        int src, dest, wt;
-        Edge(int src, int dest, int wt){
+    // public static class Edge{
+    //     int src, dest, wt;
+    //     Edge(int src, int dest, int wt){
+    //         this.src = src;
+    //         this.dest = dest;
+    //         this.wt = wt;
+    //     }
+    // }
+    public static class Edge implements Comparable<Edge>{
+        int src, dest, cost;
+        Edge(int src, int dest, int cost){
             this.src = src;
             this.dest = dest;
-            this.wt = wt;
-        }
-    }
-    public static class Pair implements Comparable<Pair>{
-        int src, vertex, cost;
-        Pair(int src, int vertex, int cost){
-            this.src = src;
-            this.vertex = vertex;
             this.cost = cost;
         }
 
         @Override
-        public int compareTo(Pair p2){
+        public int compareTo(Edge p2){
             return this.cost - p2.cost;
         }
     }
@@ -59,20 +59,20 @@ public class PrimsAlgo {
 
     public static void primsForMST(ArrayList<Edge>[] graph){
         boolean visited[] = new boolean[graph.length];
-        PriorityQueue<Pair> pq = new PriorityQueue<>();
-        pq.add(new Pair(0, 0, 0));
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        pq.add(new Edge(0, 0, 0));
         ArrayList<Edge> edgesInMST = new ArrayList<>();
         int finalCost = 0;
 
         while(!pq.isEmpty()){
-            Pair curr = pq.remove();
-            if(!visited[curr.vertex]){
-                visited[curr.vertex] = true;
-                edgesInMST.add(new Edge(curr.src, curr.vertex, curr.cost));
+            Edge curr = pq.remove();
+            if(!visited[curr.dest]){
+                visited[curr.dest] = true;
+                edgesInMST.add(new Edge(curr.src, curr.dest, curr.cost));
                 finalCost += curr.cost;
-                for(int i = 0; i < graph[curr.vertex].size(); i++){
-                    Edge e = graph[curr.vertex].get(i);
-                    pq.add(new Pair(e.src, e.dest, e.wt));
+                for(int i = 0; i < graph[curr.dest].size(); i++){
+                    Edge e = graph[curr.dest].get(i);
+                    pq.add(new Edge(e.src, e.dest, e.cost));
                 }
             }
         }
@@ -81,7 +81,7 @@ public class PrimsAlgo {
         edgesInMST.remove(0);
         for(int i = 0; i < edgesInMST.size(); i++){
             Edge e = edgesInMST.get(i);
-            System.out.println("Src: " + e.src + "\tDest: " + e.dest + "\tWeight: " + e.wt);
+            System.out.println("Src: " + e.src + "\tDest: " + e.dest + "\tWeight: " + e.cost);
         }
     }
 
