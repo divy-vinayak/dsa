@@ -51,6 +51,11 @@ public class KnapSack{
                 }
             }
         }
+        for(int i = 0; i < dp.length; i++){
+            for(int j = 0; j < dp[i].length; j++){
+                System.out.print((dp[i][j]/10 == 0? "0" + dp[i][j]: dp[i][j]) + "  ");
+            }System.out.println("\n");
+        }
         return dp[wt.length][W];
     }
     public static void main(String[] args) {
