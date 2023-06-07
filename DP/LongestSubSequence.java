@@ -38,9 +38,32 @@ public class LongestSubSequence {
             }
         }
     }
+
+    public static int longestSubSequenceTab(String s1, String s2){
+        int dp[][] = new int[s1.length()+1][s2.length()+1];
+        int m = s1.length(), n = s2.length();
+        for(int i = 0; i < dp.length; i++){
+            dp[i][0] = 0;
+        }
+        for(int i = 0; i < dp[0].length; i++){
+            dp[0][i] = 0;
+        }
+        for(int i = 1; i < dp.length; i++){
+            for(int j = 1; j < dp[0].length; j++){
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }else{
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
     public static void main(String[] args) {
         String s1 = "abcdefg", s2 = "acef";
         System.out.println(longestSubSequence(s1, s2, s1.length(), s2.length()));
         System.out.println(longestSubSequenceMemo(s1, s2));
+        System.out.println(longestSubSequenceTab(s1, s2));
     }
 }
