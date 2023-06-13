@@ -8,7 +8,7 @@ package SegmentTrees;
 public class SegmentTrees{
     public static class SegTree{
         static int st[];
-        static int arr[];
+        int arr[];
         public void buildTree(int arr[]){
             st = new int[arr.length*4];
             this.arr = arr;
@@ -44,11 +44,31 @@ public class SegmentTrees{
                 return getSumHelp(2*i+1, si, mid, qi, qj) + getSumHelp(2*i+2, mid+1, sj, qi, qj);
             }
         }
+
+        public void update(int arr[], int v, int idx){
+            updateHelper(v-arr[idx], 0, idx, 0, arr.length-1);
+            arr[idx] = v;
+        }
+        public static void updateHelper(int diff, int i, int idx, int si, int sj){
+            if(idx < si || idx > sj){
+                return;
+            }else if(si == sj){
+                st[i] += diff;
+            }else{
+                st[i] += diff;
+                int mid = (si+sj)/2;
+                updateHelper(diff, 2*i+1, idx, si, mid);
+                updateHelper(diff, 2*i+2, idx, mid+1, sj);
+            }
+        }
     }
     public static void main(String[] args) {
         int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
         SegTree s = new SegTree();
         s.buildTree(arr);
+        s.printSt();
+        System.out.println(s.getSum(0,2));
+        s.update(arr, 5, 1);
         s.printSt();
         System.out.println(s.getSum(0,2));
     }
